@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         GIT_URL = 'https://github.com/Sahilsinghss/pythonproj.git'
-        GIT_CREDS = '92ec0319-697f-49d3-b22d-a99a7f8439e8'
+        GIT_CREDS = 'jenkins'
         GIT_BRANCH = 'main'
         SPRING_PROFILE = 'dev'
         dockerimagename = credentials('DockerRepo')
