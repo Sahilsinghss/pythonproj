@@ -32,8 +32,6 @@ pipeline {
                     // Create the zip file
                     sh "zip -r ${zipFileName} ${directoryToZip}"
                     
-                    // Move the zip file to a desired location
-                    sh "mv ${zipFileName} /var/lib/jenkins/workspace/python/${zipFileName}"
                 }
             }
         }
@@ -45,7 +43,7 @@ pipeline {
                     def user = 'jenkins'
                     def password = 'Sahil123'
                     def remoteDir = '/home/jenkins'
-                    def localZipFile = 'code.zip'
+                    def localZipFile = '/var/lib/jenkins/workspace/python/code.zip'
                     
                     // Transfer the zip file to the server using SCP
                     sh "sshpass -p '${password}' scp ${localZipFile} ${user}@${server}:${remoteDir}"
