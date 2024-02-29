@@ -35,18 +35,36 @@ pipeline {
                 }
             }
         }
-     stage('Transfer Zip to Server') {
+     // stage('Transfer Zip to Server') {
+     //        steps {
+     //            script {
+     //                // Define server details
+     //                def server = '172.31.92.4'
+     //                def user = 'jenkins'
+     //                def password = 'Sahil123'
+     //                def remoteDir = '/home/jenkins'
+     //                def localZipFile = '/var/lib/jenkins/workspace/python/code.zip'
+                    
+     //                // Transfer the zip file to the server using SCP
+     //                sh "/usr/bin/sshpass -p '${password}' scp ${localZipFile} ${user}@${server}:${remoteDir}"
+     //            }
+     //        }
+     //    }
+     stage('Remote SSH') {
             steps {
                 script {
-                    // Define server details
-                    def server = '172.31.92.4'
-                    def user = 'jenkins'
-                    def password = 'Sahil123'
-                    def remoteDir = '/home/jenkins'
-                    def localZipFile = '/var/lib/jenkins/workspace/python/code.zip'
+                    def remote = [:]
+                    remote.name = 'test'
+                    remote.host = '172.31.92.4'
+                    remote.user = 'jenkins'
+                    remote.password = 'Sahil123'
+                    remote.allowAnyHosts = true
                     
-                    // Transfer the zip file to the server using SCP
-                    sh "/usr/bin/sshpass -p '${password}' scp ${localZipFile} ${user}@${server}:${remoteDir}"
+                    // Write a script to a file
+                    //writeFile file: 'abc.sh', text: 'ls -lrt'
+                    
+                    // Transfer the script file to the remote server
+                    sshPut remote: remote, from: '/var/lib/jenkins/workspace/python/code.zip', into: '/home/jenkins'
                 }
             }
         }
