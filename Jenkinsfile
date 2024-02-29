@@ -39,7 +39,7 @@ pipeline {
             steps {
                 script {
                     // Define server details
-                    def server = '34.238.246.224'
+                    def server = '172.31.92.4'
                     def user = 'jenkins'
                     def password = 'Sahil123'
                     def remoteDir = '/home/jenkins'
