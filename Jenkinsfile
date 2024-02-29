@@ -35,39 +35,39 @@ pipeline {
                 }
             }
         }
-     // stage('Transfer Zip to Server') {
-     //        steps {
-     //            script {
-     //                // Define server details
-     //                def server = '172.31.92.4'
-     //                def user = 'jenkins'
-     //                def password = 'Sahil123'
-     //                def remoteDir = '/home/jenkins'
-     //                def localZipFile = '/var/lib/jenkins/workspace/python/code.zip'
-                    
-     //                // Transfer the zip file to the server using SCP
-     //                sh "/usr/bin/sshpass -p '${password}' scp ${localZipFile} ${user}@${server}:${remoteDir}"
-     //            }
-     //        }
-     //    }
-     stage('Remote SSH') {
+     stage('Transfer Zip to Server') {
             steps {
                 script {
-                    def remote = [:]
-                    remote.name = 'test'
-                    remote.host = '172.31.92.4'
-                    remote.user = 'jenkins'
-                    remote.keyFile = '/var/lib/jenkins/.ssh/id_rsa'
-                    remote.allowAnyHosts = true
+                    // Define server details
+                    def server = '172.31.92.4'
+                    def user = 'jenkins'
+                    def password = 'Sahil123'
+                    def remoteDir = '/home/jenkins'
+                    def localZipFile = '/var/lib/jenkins/workspace/python/code.zip'
                     
-                    // Write a script to a file
-                    //writeFile file: 'abc.sh', text: 'ls -lrt'
-                    
-                    // Transfer the script file to the remote server
-                    sshPut remote: remote, from: '/var/lib/jenkins/workspace/python/code.zip', into: '/home/jenkins'
+                    // Transfer the zip file to the server using SCP
+                    sh "/usr/bin/sshpass -p '${password}' scp ${localZipFile} ${user}@${server}:${remoteDir}"
                 }
             }
         }
+     // stage('Remote SSH') {
+     //        steps {
+     //            script {
+     //                def remote = [:]
+     //                remote.name = 'test'
+     //                remote.host = '172.31.92.4'
+     //                remote.user = 'jenkins'
+     //                remote.keyFile = '/var/lib/jenkins/.ssh/id_rsa'
+     //                remote.allowAnyHosts = true
+                    
+     //                // Write a script to a file
+     //                //writeFile file: 'abc.sh', text: 'ls -lrt'
+                    
+     //                // Transfer the script file to the remote server
+     //                sshPut remote: remote, from: '/var/lib/jenkins/workspace/python/code.zip', into: '/home/jenkins'
+     //            }
+     //        }
+     //    }
 
 
 
