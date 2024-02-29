@@ -57,7 +57,7 @@ pipeline {
                     remote.name = 'test'
                     remote.host = '172.31.92.4'
                     remote.user = 'jenkins'
-                    remote.password = 'Sahil123'
+                    remote.keyFile = '/var/lib/jenkins/.ssh/id_rsa'
                     remote.allowAnyHosts = true
                     
                     // Write a script to a file
