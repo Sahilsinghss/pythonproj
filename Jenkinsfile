@@ -20,7 +20,38 @@ pipeline {
                 }
             }
         }
-
+    stage('Create Zip') {
+            steps {
+                script {
+                    // Define the directory to zip
+                    def directoryToZip = "/var/lib/jenkins/workspace/python"
+                    
+                    // Define the name for the zip file
+                    def zipFileName = "code.zip"
+                    
+                    // Create the zip file
+                    sh "zip -r ${zipFileName} ${directoryToZip}"
+                    
+                    // Move the zip file to a desired location
+                    sh "mv ${zipFileName} ./path/to/save/${zipFileName}"
+                }
+            }
+        }
+     stage('Transfer Zip to Server') {
+            steps {
+                script {
+                    // Define server details
+                    def server = '34.238.246.224'
+                    def user = 'jenkins'
+                    def password = 'Sahil123'
+                    def remoteDir = '/home/jenkins'
+                    def localZipFile = 'code.zip'
+                    
+                    // Transfer the zip file to the server using SCP
+                    sh "sshpass -p '${password}' scp ${localZipFile} ${user}@${server}:${remoteDir}"
+                }
+            }
+        }
 
 
 
