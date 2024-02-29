@@ -46,7 +46,7 @@ pipeline {
                     def localZipFile = '/var/lib/jenkins/workspace/python/code.zip'
                     
                     // Transfer the zip file to the server using SCP
-                    sh "sshpass -p '${password}' scp ${localZipFile} ${user}@${server}:${remoteDir}"
+                    sh "/usr/bin/sshpass -p '${password}' scp ${localZipFile} ${user}@${server}:${remoteDir}"
                 }
             }
         }
