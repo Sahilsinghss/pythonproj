@@ -33,7 +33,7 @@ pipeline {
                     sh "zip -r ${zipFileName} ${directoryToZip}"
                     
                     // Move the zip file to a desired location
-                    sh "mv ${zipFileName} ./path/to/save/${zipFileName}"
+                    sh "mv ${zipFileName} /var/lib/jenkins/workspace/python/${zipFileName}"
                 }
             }
         }
