@@ -5,10 +5,6 @@ pipeline {
         GIT_URL = 'https://github.com/Sahilsinghss/pythonproj.git'
         GIT_CREDS = 'jenkins'
         GIT_BRANCH = 'main'
-        SPRING_PROFILE = 'dev'
-        dockerimagename = credentials('DockerRepo')
-        dockercreds = 'dockerhublogin'
-        dockerurl = 'https://registry.hub.docker.com'
     }
 
     stages {
