@@ -1,5 +1,11 @@
 pipeline {
     agent any
+        parameters {
+
+        gitParameter(branchFilter: 'origin/(.*)', defaultValue: 'main', name: 'GIT_BRANCH', type: 'PT_BRANCH')
+        choice(name: 'ENV_TYPE', choices: ['develop', 'uat', 'prod'], description: 'Select environment type')
+
+    }
 
     environment {
         GIT_URL = 'https://github.com/Sahilsinghss/pythonproj.git'
@@ -15,7 +21,7 @@ pipeline {
                     deleteDir()
                     
                     // Git clone
-                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: GIT_URL,credentialsId: GIT_CREDS]]])
+                    checkout([$class: 'GitSCM', branches: [[name: "${params.GIT_BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: GIT_URL,credentialsId: GIT_CREDS]]])
                     echo "Cloned code is in directory: ${pwd()}"
                 }
             }
