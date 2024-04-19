@@ -36,8 +36,11 @@ pipeline {
                     def zipFileName = "code.zip"
                     
                     // Create the zip file
-                    sh "zip -r ${zipFileName} ${directoryToZip}"
-                    
+                    //sh "zip -r ${zipFileName} ${directoryToZip}"
+                    archive(includes: "${directoryToZip}/**", excludes: '', allowEmptyArchive: true, excludesByFile: '') {
+    artifact zipFileName
+}
+
                 }
             }
         }
