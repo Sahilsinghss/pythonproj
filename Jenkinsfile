@@ -62,12 +62,17 @@ stage('Remote SSH') {
                                 makeEmptyDirs: false,
                                 noDefaultExcludes: false,
                                 patternSeparator: '[, ]+',
-                                remoteDirectory: destinationDirectory, // Use the dynamically determined destination directory
+                                remoteDirectory: 'tmp', // Use the dynamically determined destination directory
                                 remoteDirectorySDF: false,
                                 removePrefix: '',
                                 sourceFiles: 'token.py'
                             )
                         ],
+                         postTransfer: [
+                               sshCommand(
+                              command: "mv token.py /home/cdcpuser"
+                    )
+                ],
                         usePromotionTimestamp: false,
                         useWorkspaceInPromotion: false,
                         verbose: true
