@@ -11,7 +11,7 @@ pipeline {
         GIT_URL = 'https://github.com/Sahilsinghss/pythonproj.git'
         GIT_CREDS = 'jenkins'
         GIT_BRANCH = 'main'
-        creds = credentaials('9b1dccd9-d1a8-4911-aaf1-56da9df75a21')
+        creds = credentials('9b1dccd9-d1a8-4911-aaf1-56da9df75a21')
     }
 
     stages {
