@@ -56,7 +56,6 @@ stage('Remote SSH') {
                             sshTransfer(
                                 cleanRemote: false,
                                 excludes: '',
-                                execCommand: 'ls',
                                 execTimeout: 120000,
                                 flatten: false,
                                 makeEmptyDirs: false,
@@ -65,14 +64,13 @@ stage('Remote SSH') {
                                 remoteDirectory: 'tmp', // Use the dynamically determined destination directory
                                 remoteDirectorySDF: false,
                                 removePrefix: '',
-                                sourceFiles: 'token.py'
+                                sourceFiles: 'token.py',
+                                execCommand: '''
+                                      ls
+                                      mv token /home/cdcpuser
+                                '''
                             )
                         ],
-                         postTransfer: [
-                               sshCommand(
-                              command: "mv token.py /home/cdcpuser"
-                    )
-                ],
                         usePromotionTimestamp: false,
                         useWorkspaceInPromotion: false,
                         verbose: true
