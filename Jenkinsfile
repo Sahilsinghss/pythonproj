@@ -67,7 +67,8 @@ stage('Remote SSH') {
                                 sourceFiles: 'token.py',
                                 execCommand: '''
                                       ls
-                                      mv token /home/cdcpuser
+                                      cd tmp
+                                      mv token.py /home/cdcpuser
                                 '''
                             )
                         ],
