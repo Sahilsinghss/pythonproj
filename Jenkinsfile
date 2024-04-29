@@ -50,7 +50,7 @@ stage('Remote SSH') {
                 publishers: [
                     sshPublisherDesc(
                         configName: 'cdcp-spark',
-                        sshCredentials: [encryptedPassphrase: '${creds}', key: '', keyPath: '', username: 'cdcpuser'],
+                        sshCredentials: [encryptedPassphrase: ${creds}, key: '', keyPath: '', username: 'cdcpuser'],
                         sshLabel: [label: 'CDCP-SPARK'],
                         transfers: [
                             sshTransfer(
