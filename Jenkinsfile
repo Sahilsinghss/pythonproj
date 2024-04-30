@@ -82,7 +82,6 @@ stage('Remote SSH') {
                                 execCommand: '''
                                       ls
                                       cd tmp
-                                      mv self_service_backend.zip /home/cdcpuser/logs
                                 '''
                             )
                         ],
