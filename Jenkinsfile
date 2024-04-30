@@ -28,6 +28,20 @@ pipeline {
             }
         }
 
+      stage('Create Zip') {
+                    steps {
+                        script {
+                            // Define the directory to zip
+                            def directoryToZip = "${WORKSPACE}"
+                            // Define the name for the zip file
+                            def zipFileName = "self_service_backend.zip"
+                            // Create the zip file
+                            sh "zip -r ${zipFileName} ${directoryToZip}"
+                            sh "ls -lrt"
+                        }
+                    }
+                }
+        
 stage('Remote SSH') {
     steps {
         script {
@@ -64,11 +78,11 @@ stage('Remote SSH') {
                                 remoteDirectory: 'tmp', // Use the dynamically determined destination directory
                                 remoteDirectorySDF: false,
                                 removePrefix: '',
-                                sourceFiles: 'token.py',
+                                sourceFiles: 'self_service_backend.zip',
                                 execCommand: '''
                                       ls
                                       cd tmp
-                                      mv token.py /home/cdcpuser/logs
+                                      mv self_service_backend.zip /home/cdcpuser/logs
                                 '''
                             )
                         ],
