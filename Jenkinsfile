@@ -36,7 +36,8 @@ pipeline {
                             // Define the name for the zip file
                             def zipFileName = "self_service_backend.zip"
                             // Create the zip file
-                            sh "zip -r ${zipFileName} ${directoryToZip}"
+                            sh "cd ${WORKSPACE}"
+                            sh "zip -r ${zipFileName} ."
                             sh "ls -lrt"
                         }
                     }
