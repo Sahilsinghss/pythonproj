@@ -37,7 +37,7 @@ pipeline {
                             def zipFileName = "self_service_backend.zip"
                             // Create the zip file
                             sh "cd ${WORKSPACE}"
-                            sh "zip -r ${zipFileName} ."
+                            sh "zip -r ${zipFileName} . -x 'Jenkinsfile' '.git'"
                             sh "ls -lrt"
                         }
                     }
