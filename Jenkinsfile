@@ -65,9 +65,9 @@ stage('Remote SSH') {
             sshPublisher(
                 publishers: [
                     sshPublisherDesc(
-                        configName: 'cdcp-spark',
+                        configName: 'dep-kube',
                         sshCredentials: [encryptedPassphrase: '', key: '', keyPath: creds, username: 'azureuser'],
-                        sshLabel: [label: 'CDCP-SPARK'],
+                        sshLabel: [label: 'dep-kube'],
                         transfers: [
                             sshTransfer(
                                 cleanRemote: false,
