@@ -66,7 +66,7 @@ stage('Remote SSH') {
                 publishers: [
                     sshPublisherDesc(
                         configName: 'dep-kube',
-                        sshCredentials: [encryptedPassphrase: '', key: '', keyPath: creds, username: 'azureuser'],
+                        sshCredentials: [encryptedPassphrase: '', key: '', keyPath: env.creds, username: 'azureuser'],
                         sshLabel: [label: 'dep-kube'],
                         transfers: [
                             sshTransfer(
