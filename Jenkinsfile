@@ -40,6 +40,7 @@ pipeline {
                             sh "zip -r ${zipFileName} . -x 'Jenkinsfile' '.git'"
                             sh "ls -lrt"
                             sh "echo ${env.creds}"
+
                         }
                     }
                 }
