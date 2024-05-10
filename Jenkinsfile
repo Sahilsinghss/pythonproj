@@ -11,7 +11,7 @@ pipeline {
         GIT_URL = 'https://github.com/Sahilsinghss/pythonproj.git'
         GIT_CREDS = 'jenkins'
         GIT_BRANCH = 'main'
-        creds = credentials('private_key')
+        creds = credentials('private-key-file')
     }
 
     stages {
@@ -66,7 +66,7 @@ stage('Remote SSH') {
                 publishers: [
                     sshPublisherDesc(
                         configName: 'cdcp-spark',
-                        sshCredentials: [encryptedPassphrase: '', key: ${env.creds}, keyPath: '', username: 'azureuser'],
+                        sshCredentials: [encryptedPassphrase: '', key: '', keyPath: creds, username: 'azureuser'],
                         sshLabel: [label: 'CDCP-SPARK'],
                         transfers: [
                             sshTransfer(
