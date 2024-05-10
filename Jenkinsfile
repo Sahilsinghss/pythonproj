@@ -1,11 +1,11 @@
 pipeline {
     agent any
-        parameters {
+    //     parameters {
 
-        gitParameter(branchFilter: 'origin/(.*)', defaultValue: 'main', name: 'GIT_BRANCH', type: 'PT_BRANCH')
-        choice(name: 'ENV_TYPE', choices: ['develop', 'uat', 'prod'], description: 'Select environment type')
+    //     gitParameter(branchFilter: 'origin/(.*)', defaultValue: 'main', name: 'GIT_BRANCH', type: 'PT_BRANCH')
+    //     choice(name: 'ENV_TYPE', choices: ['develop', 'uat', 'prod'], description: 'Select environment type')
 
-    }
+    // }
 
     environment {
         GIT_URL = 'https://github.com/Sahilsinghss/pythonproj.git'
@@ -39,7 +39,6 @@ pipeline {
                             sh "cd ${WORKSPACE}"
                             sh "zip -r ${zipFileName} . -x 'Jenkinsfile' '.git'"
                             sh "ls -lrt"
-                            sh "echo ${env.creds}"
 
                         }
                     }
@@ -67,7 +66,7 @@ stage('Remote SSH') {
                 publishers: [
                     sshPublisherDesc(
                         configName: 'cdcp-spark',
-                        sshCredentials: [encryptedPassphrase: '', key: env.creds, keyPath: '', username: 'azureuser'],
+                        sshCredentials: [encryptedPassphrase: '', key: ${env.creds}, keyPath: '', username: 'azureuser'],
                         sshLabel: [label: 'CDCP-SPARK'],
                         transfers: [
                             sshTransfer(
