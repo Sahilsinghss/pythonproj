@@ -11,6 +11,7 @@ pipeline {
         GIT_URL = 'https://github.com/Sahilsinghss/pythonproj.git'
         GIT_CREDS = 'jenkins'
         GIT_BRANCH = 'main'
+        creds = credentials('private_key')
     }
 
     stages {
@@ -27,6 +28,22 @@ pipeline {
             }
         }
 
+      stage('Create Zip') {
+                    steps {
+                        script {
+                            // Define the directory to zip
+                            def directoryToZip = "${WORKSPACE}"
+                            // Define the name for the zip file
+                            def zipFileName = "self_service_backend.zip"
+                            // Create the zip file
+                            sh "cd ${WORKSPACE}"
+                            sh "zip -r ${zipFileName} . -x 'Jenkinsfile' '.git'"
+                            sh "ls -lrt"
+                            sh "echo ${env.creds}"
+                        }
+                    }
+                }
+        
 stage('Remote SSH') {
     steps {
         script {
@@ -49,22 +66,25 @@ stage('Remote SSH') {
                 publishers: [
                     sshPublisherDesc(
                         configName: 'cdcp-spark',
-                        sshCredentials: [encryptedPassphrase: '{AQAAABAAAAAQ5tVoePFWpxHnFeh6dFlZqM4lYfZxr2BEZzV544Lr8gM=}', key: '', keyPath: '', username: 'cdcpuser'],
+                        sshCredentials: [encryptedPassphrase: '', key: creds, keyPath: '', username: 'azureuser'],
                         sshLabel: [label: 'CDCP-SPARK'],
                         transfers: [
                             sshTransfer(
                                 cleanRemote: false,
                                 excludes: '',
-                                execCommand: 'ls',
                                 execTimeout: 120000,
                                 flatten: false,
                                 makeEmptyDirs: false,
                                 noDefaultExcludes: false,
                                 patternSeparator: '[, ]+',
-                                remoteDirectory: destinationDirectory, // Use the dynamically determined destination directory
+                                remoteDirectory: 'tmp', // Use the dynamically determined destination directory
                                 remoteDirectorySDF: false,
                                 removePrefix: '',
-                                sourceFiles: 'token.py'
+                                sourceFiles: 'self_service_backend.zip',
+                                execCommand: '''
+                                      ls
+                                      cd tmp
+                                '''
                             )
                         ],
                         usePromotionTimestamp: false,
