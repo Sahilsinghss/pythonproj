@@ -61,17 +61,16 @@ stage('Remote SSH') {
                 default:
                     error "Invalid ENV_TYPE selected"
             }
-            
-sshPublisher(
+            withCredentials([file(credentialsId: 'azure-test-private-key', variable: 'SSH_KEY')]) {
+                sshPublisher(
                     publishers: [
                         sshPublisherDesc(
                             configName: 'dep-kube', // This should be the name of the SSH site configuration in Jenkins
                             sshCredentials: [
                                 username: 'azureuser',
-                                key: '',
+                                key: readFile(SSH_KEY),
                                 keyPath: '', // Leave key and keyPath empty if using credentialsId
-                                encryptedPassphrase: '',
-                                credentialsId: 'azure-test-private-key' // Reference the credential ID
+                                encryptedPassphrase: ''
                             ],
                             transfers: [
                                 sshTransfer(
@@ -100,6 +99,7 @@ sshPublisher(
                 )
         }
     }
+}
 }
 
     }
