@@ -61,7 +61,7 @@ stage('Remote SSH') {
                 default:
                     error "Invalid ENV_TYPE selected"
             }
-            withCredentials([file(credentialsId: 'test', variable: 'SSH_KEY')]) {
+            withCredentials([file(credentialsId: 'private-key-file', variable: 'SSH_KEY')]) {
                 sshPublisher(
                     publishers: [
                         sshPublisherDesc(
