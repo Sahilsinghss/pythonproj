@@ -62,37 +62,42 @@ stage('Remote SSH') {
                     error "Invalid ENV_TYPE selected"
             }
             
-            sshPublisher(
-                publishers: [
-                    sshPublisherDesc(
-                        configName: 'dep-kube',
-                        sshCredentials: [encryptedPassphrase: '', key: '', keyPath: env.creds, username: 'azureuser'],
-                        sshLabel: [label: 'dep-kube'],
-                        transfers: [
-                            sshTransfer(
-                                cleanRemote: false,
-                                excludes: '',
-                                execTimeout: 120000,
-                                flatten: false,
-                                makeEmptyDirs: false,
-                                noDefaultExcludes: false,
-                                patternSeparator: '[, ]+',
-                                remoteDirectory: 'tmp', // Use the dynamically determined destination directory
-                                remoteDirectorySDF: false,
-                                removePrefix: '',
-                                sourceFiles: 'self_service_backend.zip',
-                                execCommand: '''
-                                      ls
-                                      cd tmp
-                                '''
-                            )
-                        ],
-                        usePromotionTimestamp: false,
-                        useWorkspaceInPromotion: false,
-                        verbose: true
-                    )
-                ]
-            )
+sshPublisher(
+                    publishers: [
+                        sshPublisherDesc(
+                            configName: 'dep-kube', // This should be the name of the SSH site configuration in Jenkins
+                            sshCredentials: [
+                                username: 'azureuser',
+                                key: '',
+                                keyPath: '', // Leave key and keyPath empty if using credentialsId
+                                encryptedPassphrase: '',
+                                credentialsId: 'azure-test-private-key' // Reference the credential ID
+                            ],
+                            transfers: [
+                                sshTransfer(
+                                    cleanRemote: false,
+                                    excludes: '',
+                                    execTimeout: 120000,
+                                    flatten: false,
+                                    makeEmptyDirs: false,
+                                    noDefaultExcludes: false,
+                                    patternSeparator: '[, ]+',
+                                    remoteDirectory: 'tmp',
+                                    remoteDirectorySDF: false,
+                                    removePrefix: '',
+                                    sourceFiles: 'self_service_backend.zip',
+                                    execCommand: '''
+                                        ls
+                                        cd tmp
+                                    '''
+                                )
+                            ],
+                            usePromotionTimestamp: false,
+                            useWorkspaceInPromotion: false,
+                            verbose: true
+                        )
+                    ]
+                )
         }
     }
 }
