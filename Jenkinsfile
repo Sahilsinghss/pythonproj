@@ -31,6 +31,10 @@ pipeline {
       stage('Create Zip') {
                     steps {
                         script {
+                            withCredentials([file(credentialsId: 'private-key-file', variable: 'SSH_KEY')]) {
+                            
+                            def key = readFile(SSH_KEY)
+                            sh 'cat ${key}'
                             // Define the directory to zip
                             def directoryToZip = "${WORKSPACE}"
                             // Define the name for the zip file
@@ -43,6 +47,7 @@ pipeline {
                         }
                     }
                 }
+      }
         
 stage('Remote SSH') {
     steps {
