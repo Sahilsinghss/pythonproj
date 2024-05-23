@@ -66,14 +66,14 @@ pipeline {
                         default:
                             error "Invalid ENV_TYPE selected"
                     }
-                    withCredentials([sshUserPrivateKey(credentialsId: 'pythonprj', keyFileVariable: 'SSH_KEY', passphraseVariable: '', usernameVariable: 'SSH_USER')]) {
+                    withCredentials([file(credentialsId: 'private-key-file', variable: 'SSH_KEY_FILE')])  {
                         sshPublisher(
                             publishers: [
                                 sshPublisherDesc(
                                     configName: 'cdcp-spark', // This should be the name of the SSH site configuration in Jenkins
                                     sshCredentials: [
-                                        username: env.SSH_USER,
-                                        key: env.SSH_KEY,
+                                        username: 'cdcpuser',
+                                        key: SSH_KEY_FILE,
                                         keyPath: '', // Leave key and keyPath empty if using credentialsId
                                         encryptedPassphrase: ''
                                     ],
