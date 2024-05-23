@@ -73,7 +73,7 @@ pipeline {
                                     configName: 'cdcp-spark', // This should be the name of the SSH site configuration in Jenkins
                                     sshCredentials: [
                                         username: 'cdcpuser',
-                                        key: '''$SSH_KEY_FILE''',
+                                        key: env.SSH_KEY_FILE,
                                         keyPath: '', // Leave key and keyPath empty if using credentialsId
                                         encryptedPassphrase: ''
                                     ],
