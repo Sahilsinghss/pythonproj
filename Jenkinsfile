@@ -70,48 +70,47 @@ stage('Remote SSH') {
                 sshPublisher(
                     publishers: [
                         sshPublisherDesc(
-                            configName: 'dep-kube', // This should be the name of the SSH site configuration in Jenkins
+                            configName: 'cdcp-spark', // This should be the name of the SSH site configuration in Jenkins
                             sshCredentials: [
-                                username: 'azureuser',
-                                key: '''-----BEGIN RSA PRIVATE KEY-----
-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
------END RSA PRIVATE KEY-----''',
+                                username: 'cdcpuser',
+                                key: '''-----BEGIN OPENSSH PRIVATE KEY-----
+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
+-----END OPENSSH PRIVATE KEY-----''',
                                 keyPath: '', // Leave key and keyPath empty if using credentialsId
                                 encryptedPassphrase: ''
                             ],
