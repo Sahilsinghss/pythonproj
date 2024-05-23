@@ -71,12 +71,12 @@ pipeline {
                             publishers: [
                                 sshPublisherDesc(
                                     configName: 'cdcp-spark', // This should be the name of the SSH site configuration in Jenkins
-                                    sshCredentials: [
-                                        username: '',
-                                        key: '',
-                                        keyPath: '', // Leave key and keyPath empty if using credentialsId
-                                        encryptedPassphrase: ''
-                                    ],
+                                    // sshCredentials: [
+                                    //     username: '',
+                                    //     key: '',
+                                    //     keyPath: '', // Leave key and keyPath empty if using credentialsId
+                                    //     encryptedPassphrase: ''
+                                    // ],
                                     transfers: [
                                         sshTransfer(
                                             cleanRemote: false,
