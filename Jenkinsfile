@@ -92,9 +92,9 @@ pipeline {
                                             remoteDirectorySDF: false,
                                             removePrefix: '',
                                             sourceFiles: 'self_service_backend.zip',
-                                            execCommand: '''
+                                            execCommand: """
                                                 echo $test
-                                            '''
+                                            """
                                         )
                                     ],
                                     usePromotionTimestamp: false,
