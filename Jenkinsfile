@@ -92,9 +92,7 @@ pipeline {
                                             removePrefix: '',
                                             sourceFiles: 'self_service_backend.zip',
                                             execCommand: '''
-                                                ls
-                                                cd ${destinationDirectory}
-                                                ls -lrt
+                                                echo $destinationDirectory
                                             '''
                                         )
                                     ],
