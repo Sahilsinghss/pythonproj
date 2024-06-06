@@ -53,6 +53,7 @@ pipeline {
         stage('Remote SSH') {
             steps {
                 script {
+                    def test = 'it is just a test'
                     def destinationDirectory
                     switch (params.ENV_TYPE) {
                         case 'develop':
@@ -92,7 +93,7 @@ pipeline {
                                             removePrefix: '',
                                             sourceFiles: 'self_service_backend.zip',
                                             execCommand: '''
-                                                echo $destinationDirectory
+                                                echo $test
                                             '''
                                         )
                                     ],
