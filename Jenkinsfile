@@ -12,6 +12,7 @@ pipeline {
         GIT_CREDS = 'jenkins'
         GIT_BRANCH = 'main'
         creds = credentials('private-key-file')
+        dir = 'test'
     }
 
     stages {
@@ -92,7 +93,8 @@ pipeline {
                                             sourceFiles: 'self_service_backend.zip',
                                             execCommand: '''
                                                 ls
-                                                cd tmp
+                                                cd ${destinationDirectory}
+                                                ls -lrt
                                             '''
                                         )
                                     ],
