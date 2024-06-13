@@ -42,7 +42,7 @@ pipeline {
                     '''
 
                     // Create a virtual environment
-                    sh "python -m venv ${VENV_DIR}"
+                    sh "python3 -m venv ${VENV_DIR}"
 
                     // Activate the virtual environment and install dependencies
                     sh """
