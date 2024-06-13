@@ -34,12 +34,6 @@ pipeline {
             steps {
                 script {
                     // Install virtualenv if not installed
-                    sh '''
-                    if ! command -v virtualenv &> /dev/null
-                    then
-                        pip install virtualenv
-                    fi
-                    '''
 
                     // Create a virtual environment
                     sh "python3 -m venv ${VENV_DIR}"
