@@ -13,6 +13,7 @@ pipeline {
         GIT_BRANCH = 'main'
         creds = credentials('private-key-file')
         dir = 'test'
+        VENV_DIR = 'venv'
     }
 
     stages {
@@ -29,6 +30,29 @@ pipeline {
             }
         }
 
+        stage('Setup Python Environment') {
+            steps {
+                script {
+                    // Install virtualenv if not installed
+                    sh '''
+                    if ! command -v virtualenv &> /dev/null
+                    then
+                        pip install virtualenv
+                    fi
+                    '''
+
+                    // Create a virtual environment
+                    sh "python -m venv ${VENV_DIR}"
+
+                    // Activate the virtual environment and install dependencies
+                    sh """
+                    . ${VENV_DIR}/bin/activate
+                    pip install pytest
+                    """
+                }
+            }
+        }
+/* 
       stage('Create Zip') {
                     steps {
                         script {
@@ -107,7 +131,7 @@ pipeline {
                 }
             }
         }
-
+*/
 
     }
 
