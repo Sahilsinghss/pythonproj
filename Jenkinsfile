@@ -30,23 +30,23 @@ pipeline {
             }
         }
 
-        stage('Setup Python Environment') {
-            steps {
-                script {
-                    // Install virtualenv if not installed
+        // stage('Setup Python Environment') {
+        //     steps {
+        //         script {
+        //             // Install virtualenv if not installed
 
-                    // Create a virtual environment
-                    sh "python3 -m venv ${VENV_DIR}"
+        //             // Create a virtual environment
+        //             sh "python3 -m venv ${VENV_DIR}"
 
-                    // Activate the virtual environment and install dependencies
-                    sh """
-                    . ${VENV_DIR}/bin/activate
-                    pip install pytest
-                    """
-                }
-            }
-        }
-/* 
+        //             // Activate the virtual environment and install dependencies
+        //             sh """
+        //             . ${VENV_DIR}/bin/activate
+        //             pip install pytest
+        //             """
+        //         }
+        //     }
+        // }
+ 
       stage('Create Zip') {
                     steps {
                         script {
@@ -91,12 +91,12 @@ pipeline {
                             publishers: [
                                 sshPublisherDesc(
                                     configName: 'cdcp-spark', // This should be the name of the SSH site configuration in Jenkins
-                                    // sshCredentials: [
-                                    //     username: '',
-                                    //     key: '',
-                                    //     keyPath: '', // Leave key and keyPath empty if using credentialsId
-                                    //     encryptedPassphrase: ''
-                                    // ],
+                                    sshCredentials: [
+                                        username: 'cdcpuser',
+                                        key: '''$SSH_KEY_FILE''',
+                                        keyPath: '', // Leave key and keyPath empty if using credentialsId
+                                        encryptedPassphrase: ''
+                                    ],
                                     transfers: [
                                         sshTransfer(
                                             cleanRemote: false,
@@ -125,7 +125,7 @@ pipeline {
                 }
             }
         }
-*/
+
 
     }
 
