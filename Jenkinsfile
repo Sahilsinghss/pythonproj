@@ -72,10 +72,10 @@ pipeline {
             steps {
                 script {
                     def test = 'it is just a test'
-                    withCredentials([string(credentialsId: 'id-rsa-test', variable: 'SSH_KEY_FILE')])  {
-                        def key = '''$SSH_KEY_FILE'''
-                        sh 'cat key'
-                    }
+                    // withCredentials([string(credentialsId: 'id-rsa-test', variable: 'SSH_KEY_FILE')])  {
+                    //     def key = '''$SSH_KEY_FILE'''
+                    //     sh 'cat key'
+                    // }
                     def destinationDirectory
                     switch (params.ENV_TYPE) {
                         case 'develop':
@@ -90,7 +90,7 @@ pipeline {
                         default:
                             error "Invalid ENV_TYPE selected"
                     }
-                    withCredentials([string(credentialsId: 'id-rsa-test', variable: 'SSH_KEY_FILE')])  {
+                    withCredentials([string(credentialsId: 'id-rsa1-test', variable: 'SSH_KEY_FILE')])  {
                         sshPublisher(
                             publishers: [
                                 sshPublisherDesc(
