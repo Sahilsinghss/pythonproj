@@ -74,7 +74,7 @@ pipeline {
                     def test = 'it is just a test'
                     withCredentials([string(credentialsId: 'id-rsa-test', variable: 'SSH_KEY_FILE')])  {
                         def key = '''$SSH_KEY_FILE'''
-                        sh 'echo $key'
+                        sh 'cat key'
                     }
                     def destinationDirectory
                     switch (params.ENV_TYPE) {
