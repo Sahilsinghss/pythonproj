@@ -91,7 +91,7 @@ pipeline {
                             error "Invalid ENV_TYPE selected"
                     }
                     withCredentials([file(credentialsId: 'id-rsa1-test', variable: 'SSH_KEY_FILE')])  {
-                        sh 'p "$SSH_KEY_FILE" /tmp/my-private-key'
+                        sh 'cp "$SSH_KEY_FILE" /tmp/my-private-key'
                         sshPublisher(
                             publishers: [
                                 sshPublisherDesc(
