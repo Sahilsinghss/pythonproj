@@ -90,15 +90,14 @@ pipeline {
                         default:
                             error "Invalid ENV_TYPE selected"
                     }
-                    withCredentials([file(credentialsId: 'id-rsa1-test', variable: 'SSH_KEY_FILE')])  {
-                        sh 'cp "$SSH_KEY_FILE" /tmp/my-private-key'
+                    withCredentials([file(credentialsId: 'openssh-id-rsa', variable: 'SSH_KEY_FILE')])  {
                         sshPublisher(
                             publishers: [
                                 sshPublisherDesc(
                                     configName: 'cdcp-spark', // This should be the name of the SSH site configuration in Jenkins
                                     sshCredentials: [
                                         username: 'cdcpuser',
-                                        keyPath: '/tmp/my-private-key', // Leave key and keyPath empty if using credentialsId
+                                        keyPath: SSH_KEY_FILE, // Leave key and keyPath empty if using credentialsId
                                         encryptedPassphrase: ''
                                     ],
                                     transfers: [
