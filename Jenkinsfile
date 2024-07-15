@@ -90,7 +90,7 @@ pipeline {
                         default:
                             error "Invalid ENV_TYPE selected"
                     }
-                    withCredentials([string(credentialsId: 'id-rsa1-test', variable: 'SSH_KEY_FILE')])  {
+                    withCredentials([file(credentialsId: 'id-rsa1-test', variable: 'SSH_KEY_FILE')])  {
                         sshPublisher(
                             publishers: [
                                 sshPublisherDesc(
