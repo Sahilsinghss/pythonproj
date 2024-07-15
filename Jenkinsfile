@@ -98,7 +98,7 @@ pipeline {
                                     sshCredentials: [
                                         username: 'cdcpuser',
                                         key: '',
-                                        keyPath: '$SSH_KEY_FILE', // Leave key and keyPath empty if using credentialsId
+                                        keyPath: SSH_KEY_FILE, // Leave key and keyPath empty if using credentialsId
                                         encryptedPassphrase: ''
                                     ],
                                     transfers: [
